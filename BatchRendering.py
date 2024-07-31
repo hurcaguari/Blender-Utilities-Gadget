@@ -2,7 +2,7 @@ import bpy
 import os
 
 class Multie_Render(bpy.types.Operator):
-    """Docstring"""
+    """批量渲染场景内所有开启渲染的摄像机"""
     bl_idname = "render.multi"
     bl_label = "Render multiple times"
     

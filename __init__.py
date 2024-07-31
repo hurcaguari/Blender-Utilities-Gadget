@@ -26,6 +26,8 @@ bl_info = {
 
 import bpy
 from .BatchRendering import Multie_Render
+from .ModelConversion import Model_Conversion
+from .Translation import Translat
 
 from random import randint
 
@@ -34,19 +36,22 @@ class CustomPanel(bpy.types.Panel): # 面板绘制
     bl_idname = "render.gadget"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "Utilities"
+    bl_category = "Utilities"   
 
     def draw(self, context):
         layout = self.layout
         obj = context.object
         row = layout.row()
-        row.operator(Multie_Render.bl_idname, text = "Batch Rendering")
+        row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
+        row = layout.row()
+        row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
 
 
 
 _classes = [ # 按钮激活列表
     CustomPanel,
     Multie_Render,
+    Model_Conversion,
 ]
 
 def register(): # 按钮注册

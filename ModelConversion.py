@@ -1,17 +1,39 @@
 import bpy
     
-class ModelConversion(bpy.types.Operator):
+class Model_Conversion(bpy.types.Operator):
+    """批量处理场景内所有可选择的模型转换为独立的几何体"""
     bl_idname = "mode.conversion"
     bl_label = "Model Conversion"
-    obj_list = list(bpy.data.objects)
-    
+
+    obj_list = None
+
+    @classmethod
+    def poll(self,context): # 循环判断大纲列表内的可处理对象列表
+        self.obj_list = list(filter(None,[obj if obj.type in ['CURVE','FONT','MESH','EMPTY'] else None for obj in bpy.data.objects]))
+        return len(self.obj_list) > 0
+
+    def mesh(self,obj): # 网格处理没有修改器则不处理
+        if len(obj.modifiers) > 0:
+            self.conve(obj)
+
+    def empty(self,obj): # 实例处理实现实例
+        if self.select(obj):
+            bpy.ops.object.duplicates_make_real()
+
+    def conve(self,obj): # 基础处理选择并执行可视几何到网格
+        if self.select(obj):
+            obj = self.duplicate(obj)
+            self.curve(obj)
+
     def conversion(self): # 主进程筛选对象并处理
         for obj in self.obj_list:
             print(obj.name,obj.type)
-            if obj.type == 'CURVE' or obj.type == 'FONT':
-                if self.select(obj):
-                    obj = self.duplicate(obj)
-                    self.curve(obj)
+            if obj.type in ['CURVE','FONT']:
+                self.conve(obj)
+            elif obj.type == 'MESH':
+                self.mesh(obj)
+            elif obj.type == 'EMPTY':
+                self.empty(obj)
     
     def select(self,obj): # 高亮选择对象
         try:
@@ -39,11 +61,5 @@ class ModelConversion(bpy.types.Operator):
         self.conversion()
         return {'FINISHED'}
     
-def menu_func(self, context):
-    self.layout.operator(ModelConversion.bl_idname, text="Model Conversionr")
-
-
-if __name__ == "__main__":
-    bpy.utils.register_class(ModelConversion)
-    bpy.types.VIEW3D_MT_view.append(menu_func)
-    bpy.ops.mode.conversion()
+# def menu_func(self, context):
+#     self.layout.operator(Model_Conversion.bl_idname, text="Model Conversionr")
