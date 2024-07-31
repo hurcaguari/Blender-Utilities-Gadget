@@ -76,7 +76,6 @@ class Multie_Render(bpy.types.Operator):
                 # I'm using cameras named just as the output files,
                 # but adapt to your needs
                 sc.camera = bpy.data.objects[self.shots[0]]
-                # 这里需要一条根据摄像机切换场景
 
                 sc.render.filepath = self.path + self.shots[0]
                 bpy.ops.render.render("INVOKE_DEFAULT", write_still=True)
