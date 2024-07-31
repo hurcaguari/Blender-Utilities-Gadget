@@ -5,8 +5,6 @@ class Model_Conversion(bpy.types.Operator):
     bl_idname = "mode.conversion"
     bl_label = "Model Conversion"
 
-    obj_list = None
-
     @classmethod
     def poll(self,context): # 循环判断大纲列表内的可处理对象列表
         self.obj_list = list(filter(None,[obj if obj.type in ['CURVE','FONT','MESH','EMPTY'] else None for obj in bpy.data.objects]))
@@ -60,6 +58,3 @@ class Model_Conversion(bpy.types.Operator):
     def execute(self, context): # 程序入口
         self.conversion()
         return {'FINISHED'}
-    
-# def menu_func(self, context):
-#     self.layout.operator(Model_Conversion.bl_idname, text="Model Conversionr")
