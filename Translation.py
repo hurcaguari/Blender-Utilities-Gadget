@@ -10,7 +10,3 @@ def Translat(text):
     except KeyError:
         print(bpy.context.preferences.view.language,'没有对应翻译')
         return text
-
-if __name__ == "__main__":
-    x = Translat("Batch Rendering",type = 'zh_HANS')
-    pass
