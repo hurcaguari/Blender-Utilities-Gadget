@@ -6,15 +6,14 @@ class Multie_Render(bpy.types.Operator):
     bl_idname = "render.multi"
     bl_label = "Render multiple times"
     
-    # Define some variables to register
+    # 定义一些变量以进行注册
     _timer = None
     shots = None
     stop = None
     rendering = None
     
     
-    # Define the handler functions. I use pre and
-    # post to know if Blender "is rendering"
+    # 定义处理函数。我使用 pre 和 post 来判断 Blender 是否正在渲染
     @classmethod
     def poll(self, context): # 摄像机检测
         self.camera_list = list(filter(None,[obj.name if obj.type == 'CAMERA' and obj.hide_render == False and context.scene.name == obj.users_scene[0].name else None for obj in bpy.data.objects])) 
@@ -24,8 +23,7 @@ class Multie_Render(bpy.types.Operator):
         self.rendering = True
         
     def post(self, scene, context=None):
-        self.shots.pop(0) # This is just to render the next
-                          # image in another path
+        self.shots.pop(0) # 这只是为了在另一个路径中渲染下一张图像
         self.rendering = False
         bpy.context.scene.render.filepath = self.path
 
@@ -34,8 +32,7 @@ class Multie_Render(bpy.types.Operator):
 
     def execute(self, context):
         self.path = bpy.context.scene.render.filepath
-        # Define the variables during execution. This allows
-        # to define when called from a button
+        # 在执行期间定义变量。这允许从按钮调用时定义
         self.stop = False
         self.rendering = False
         self.shots = self.camera_list
@@ -46,43 +43,32 @@ class Multie_Render(bpy.types.Operator):
         bpy.app.handlers.render_post.append(self.post)
         bpy.app.handlers.render_cancel.append(self.cancelled)
         
-        # The timer gets created and the modal handler
-        # is added to the window manager
+        # 定时器被创建，模态处理程序被添加到窗口管理器
         self._timer = context.window_manager.event_timer_add(0.5, window=context.window)
         context.window_manager.modal_handler_add(self)
         return {"RUNNING_MODAL"}
         
     def modal(self, context, event):
-        if event.type == 'TIMER': # This event is signaled every half a second
-                                  # and will start the render if available
+        if event.type == 'TIMER': # 这个事件每半秒钟发出一次信号，并在可用时开始渲染
             
-            # If cancelled or no more shots to render, finish.
+            # 如果取消或没有更多的镜头要渲染，则完成。
             if True in (not self.shots, self.stop is True): 
                 
-                # We remove the handlers and the modal timer to clean everything
+                # 我们移除处理程序和模态定时器以清理所有内容
                 bpy.app.handlers.render_pre.remove(self.pre)
                 bpy.app.handlers.render_post.remove(self.post)
                 bpy.app.handlers.render_cancel.remove(self.cancelled)
                 context.window_manager.event_timer_remove(self._timer)
                 
-                return {"FINISHED"} # I didn't separate the cancel and finish
-                                    # events, because in my case I don't need to,
-                                    # but you can create them as you need
+                return {"FINISHED"} # 我没有分离取消和完成事件，因为在我的情况下不需要，但你可以根据需要创建它们
             
-            elif self.rendering is False: # Nothing is currently rendering.
-                                          # Proceed to render.
+            elif self.rendering is False: # 当前没有渲染。继续渲染。
                 sc = context.scene
                 
-                # I'm using cameras named just as the output files,
-                # but adapt to your needs
+                # 我使用的摄像机名称与输出文件相同，但可以根据需要进行调整
                 sc.camera = bpy.data.objects[self.shots[0]]
 
                 sc.render.filepath = self.path + self.shots[0]
                 bpy.ops.render.render("INVOKE_DEFAULT", write_still=True)
-
-
         return {"PASS_THROUGH"}
-        # This is very important! If we used "RUNNING_MODAL", this new modal function
-        # would prevent the use of the X button to cancel rendering, because this
-        # button is managed by the modal function of the render operator,
-        # not this new operator!
+        # 这非常重要！如果我们使用 "RUNNING_MODAL"，这个新的模态函数将阻止使用 X 按钮取消渲染，因为这个按钮由渲染操作符的模态函数管理，而不是这个新的操作符！
