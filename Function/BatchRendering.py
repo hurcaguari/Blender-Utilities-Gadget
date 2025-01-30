@@ -12,7 +12,6 @@ class Multie_Render(bpy.types.Operator):
     stop = None
     rendering = None
     
-    
     # 定义处理函数。我使用 pre 和 post 来判断 Blender 是否正在渲染
     @classmethod
     def poll(self, context): # 摄像机检测
