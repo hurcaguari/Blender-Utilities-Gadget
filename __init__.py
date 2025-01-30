@@ -31,6 +31,11 @@ from .Translation import Translat
 
 from random import randint
 
+models = [
+    Multie_Render,
+    Model_Conversion,
+]
+
 class CustomPanel(bpy.types.Panel): # 面板绘制
     bl_label = "Utilities"
     bl_idname = "render.gadget"
@@ -41,18 +46,20 @@ class CustomPanel(bpy.types.Panel): # 面板绘制
     def draw(self, context):
         layout = self.layout
         obj = context.object
-        row = layout.row()
-        row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
-        row = layout.row()
-        row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
+
+        for mode in models:
+            row = layout.row()
+            row.operator(mode.bl_idname, text = Translat(mode.bl_label))
+        # row = layout.row()
+        # row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
+        # row = layout.row()
+        # row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
 
 
 
 _classes = [ # 按钮激活列表
     CustomPanel,
-    Multie_Render,
-    Model_Conversion,
-]
+].extend(models)
 
 def register(): # 按钮注册
     for cls in _classes:
