@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # Desc: 用于处理 Blender 插件的扩展和下载
-# former: MainFest/__init__.py
-"""
-模块名称：Construct
-描述：该模块用于处理 Blender 插件的扩展和下载。
-"""
+# former: Function/__init__.py
+
 from .BatchRendering import Multie_Render
 from .ModelConversion import Model_Conversion
 
