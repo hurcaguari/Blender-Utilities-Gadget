@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 id = "Utilities_Gadget"
 name = "Utilities Gadget"
-version = "1.1.0"
+version = "1.1.1"
 tagline = "Batch rendering and model conversio"
 maintainer = "hurcaguari"
 type = "add-on"
