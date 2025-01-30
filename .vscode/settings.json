@@ -7,7 +7,7 @@
     "git.verboseCommit": true,
     "git.showPushSuccessNotification": true,
     "git.useEditorAsCommitInput": false,
-    "git.useForcePushIfIncludes": false,
+    "git.useForcePushIfIncludes": true,
     "github-actions.workflows.pinned.workflows": [
         "dynamic/dependabot/dependabot-updates"
     ]
