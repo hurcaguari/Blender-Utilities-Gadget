@@ -10,5 +10,6 @@
     "git.useForcePushIfIncludes": true,
     "github-actions.workflows.pinned.workflows": [
         "dynamic/dependabot/dependabot-updates"
-    ]
+    ],
+    "git.pushDefault": "main" // 添加这一行来指定默认推送分支
 }
