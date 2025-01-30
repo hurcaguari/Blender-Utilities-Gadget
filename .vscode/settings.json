@@ -3,7 +3,7 @@
     "git.enableSmartCommit": true,
     "git.confirmSync": false,
     "explorer.confirmDelete": false,
-    "git.postCommitCommand": "push origin main --force",
+    "git.postCommitCommand": "push",
     "git.verboseCommit": true,
     "git.showPushSuccessNotification": true,
     "git.useEditorAsCommitInput": false,
