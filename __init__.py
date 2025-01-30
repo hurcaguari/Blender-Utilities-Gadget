@@ -25,9 +25,9 @@ bl_info = {
 
 
 import bpy
-from .BatchRendering import Multie_Render
-from .ModelConversion import Model_Conversion
-from .Translation import Translat
+from .Function.BatchRendering import Multie_Render
+from .Function.ModelConversion import Model_Conversion
+from .Translat.Translation import Translat
 
 from random import randint
 

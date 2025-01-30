@@ -1,4 +1,4 @@
-from .translat_text import TEXT
+from .text import TEXT
 import bpy
 
 def baidu_translat(text):
