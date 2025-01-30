@@ -25,15 +25,12 @@ bl_info = {
 
 
 import bpy
-from .Function.BatchRendering import Multie_Render
-from .Function.ModelConversion import Model_Conversion
-from .Translat.Translation import Translat
+from .Function import Multie_Render
+from .Function import Model_Conversion
+from .Translat import Translat
 
 from random import randint
 
-models = [
-
-]
 
 class CustomPanel(bpy.types.Panel): # 面板绘制
     bl_label = "Utilities"
@@ -46,20 +43,17 @@ class CustomPanel(bpy.types.Panel): # 面板绘制
         layout = self.layout
         obj = context.object
 
-        for mode in models:
-            row = layout.row()
-            row.operator(mode.bl_idname, text = Translat(mode.bl_label))
-        # row = layout.row()
-        # row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
-        # row = layout.row()
-        # row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
+        row = layout.row()
+        row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
+        row = layout.row()
+        row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
 
 
 
 _classes = [ # 按钮激活列表
     CustomPanel,
     Multie_Render,
-    Model_Conversion,
+    Model_Conversion
 ]
 
 def register(): # 按钮注册

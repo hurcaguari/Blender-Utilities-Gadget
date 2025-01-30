@@ -71,3 +71,7 @@ class Multie_Render(bpy.types.Operator):
                 bpy.ops.render.render("INVOKE_DEFAULT", write_still=True)
         return {"PASS_THROUGH"}
         # 这非常重要！如果我们使用 "RUNNING_MODAL"，这个新的模态函数将阻止使用 X 按钮取消渲染，因为这个按钮由渲染操作符的模态函数管理，而不是这个新的操作符！
+
+    def operator(self, layout,Translation):
+        row = layout.row()
+        return row.operator(self.bl_idname, text = Translation(self.bl_label))
