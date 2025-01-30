@@ -32,8 +32,7 @@ from .Translat.Translation import Translat
 from random import randint
 
 models = [
-    Multie_Render,
-    Model_Conversion,
+
 ]
 
 class CustomPanel(bpy.types.Panel): # 面板绘制
@@ -59,7 +58,9 @@ class CustomPanel(bpy.types.Panel): # 面板绘制
 
 _classes = [ # 按钮激活列表
     CustomPanel,
-].extend(models)
+    Multie_Render,
+    Model_Conversion,
+]
 
 def register(): # 按钮注册
     for cls in _classes:
