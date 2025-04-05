@@ -15,9 +15,14 @@ class Multie_Render(bpy.types.Operator):
     # 定义处理函数。我使用 pre 和 post 来判断 Blender 是否正在渲染
     @classmethod
     def poll(self, context): # 摄像机检测
-        self.camera_list = list(filter(None,[obj.name if obj.type == 'CAMERA' and obj.hide_render == False and context.scene.name == obj.users_scene[0].name else None for obj in bpy.data.objects])) 
+        self.camera_list = list(filter(None,[obj.name if obj.type == 'CAMERA' and self.if_render(obj) == False and context.scene.name == obj.users_scene[0].name else None for obj in bpy.data.objects])) 
         return len(self.camera_list) > 0
     
+    def if_render(self,obj):
+        coll = obj.users_collection[0].hide_render
+        return obj.hide_rander and coll
+
+
     def pre(self, scene, context=None):
         self.rendering = True
         
