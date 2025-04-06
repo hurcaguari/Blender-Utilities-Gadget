@@ -28,6 +28,7 @@ import bpy # type: ignore
 from .Function import Multie_Render
 from .Function import Model_Conversion
 from .Translat import Translat
+from .Function import Collection_display
 
 from random import randint
 
@@ -44,16 +45,20 @@ class CustomPanel(bpy.types.Panel): # 面板绘制
         obj = context.object
 
         row = layout.row()
-        row.operator(Multie_Render.bl_idname, text = Translat("Batch Rendering"))
+        row.operator(Multie_Render.bl_idname, text = Translat(Multie_Render.bl_label))
         row = layout.row()
-        row.operator(Model_Conversion.bl_idname, text = Translat("Model Conversion"))
+        row.operator(Collection_display.bl_idname, text = Translat(Collection_display.bl_label))
+        row = layout.row()
+        row.operator(Model_Conversion.bl_idname, text = Translat(Model_Conversion.bl_label))
+
 
 
 
 _classes = [ # 按钮激活列表
     CustomPanel,
     Multie_Render,
-    Model_Conversion
+    Model_Conversion,
+    Collection_display,
 ]
 
 def register(): # 按钮注册

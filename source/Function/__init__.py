@@ -4,8 +4,10 @@
 
 from .BatchRendering import Multie_Render
 from .ModelConversion import Model_Conversion
+from .Display import Collection_display
 
 __all__ = [
     "Multie_Render",
     "Model_Conversion",
+    "Collection_display",
 ]
