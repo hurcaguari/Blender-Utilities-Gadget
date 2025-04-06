@@ -15,13 +15,27 @@ class Multie_Render(bpy.types.Operator):
     # 定义处理函数。我使用 pre 和 post 来判断 Blender 是否正在渲染
     @classmethod
     def poll(self, context): # 摄像机检测
+        # 这里我们检查是否有任何摄像机可以渲染
+        # 这将返回一个列表，包含所有可以渲染的摄像机名称
+        # 你可以在这里添加更多的条件来过滤摄像机
+        # 例如，检查摄像机是否在场景中可见，或者是否在特定的集合中
+        # 你可以使用 obj.hide_render 来检查摄像机是否在渲染中可见
+        # 你可以使用 obj.users_collection[0].hide_render 来检查摄像机是否在集合中可见
+        # 你可以使用 obj.users_scene[0].name 来检查摄像机是否在特定的场景中
+        # 你可以使用 obj.name 来检查摄像机的名称
+        # 你可以使用 obj.type 来检查对象的类型
+        # 你可以使用 obj.users_scene[0].name 来检查对象的场景名称
         self.camera_list = list(filter(None,[obj.name if obj.type == 'CAMERA' and self.if_render(obj) == False and context.scene.name == obj.users_scene[0].name else None for obj in bpy.data.objects])) 
         return len(self.camera_list) > 0
-    
-    def if_render(self,obj):
+    @staticmethod
+    def if_render(obj):
         coll = obj.users_collection[0].hide_render
-        return obj.hide_rander and coll
-
+        print("obj.hide_render", obj.hide_render)
+        print("coll", coll)
+        if obj.hide_render == True:
+            return obj.hide_render
+        else:
+            return coll
 
     def pre(self, scene, context=None):
         self.rendering = True

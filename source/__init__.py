@@ -14,7 +14,7 @@
 bl_info = {
     "name": "Utilities Gadget",
     "author": "INEINST MACH",
-    "version": (1, 1, 0),
+    "version": (1, 1, 3),
     "blender": (4, 2, 0),
     "location": "View3D",
     "description": "Utilities Gadget",
