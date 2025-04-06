@@ -1,5 +1,5 @@
 from .text import TEXT
-import bpy
+import bpy # type: ignore
 
 def baidu_translat(text):
     pass

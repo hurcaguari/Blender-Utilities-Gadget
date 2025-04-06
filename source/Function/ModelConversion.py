@@ -1,4 +1,4 @@
-import bpy
+import bpy # type: ignore
     
 class Model_Conversion(bpy.types.Operator):
     """批量处理场景内所有可选择的模型转换为独立的几何体"""
