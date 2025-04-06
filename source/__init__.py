@@ -24,7 +24,7 @@ bl_info = {
 }
 
 
-import bpy
+import bpy # type: ignore
 from .Function import Multie_Render
 from .Function import Model_Conversion
 from .Translat import Translat

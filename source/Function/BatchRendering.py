@@ -1,4 +1,4 @@
-import bpy
+import bpy # type: ignore
 import os
 
 class Multie_Render(bpy.types.Operator):
