@@ -34,7 +34,7 @@ from random import randint
 
 class CustomPanel(bpy.types.Panel): # 面板绘制
     bl_label = "Utilities"
-    bl_idname = "render.gadget"
+    bl_idname = "UTILITIES_PT_gadget"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "Utilities"   

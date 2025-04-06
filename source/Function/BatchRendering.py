@@ -30,8 +30,6 @@ class Multie_Render(bpy.types.Operator):
     @staticmethod
     def if_render(obj):
         coll = obj.users_collection[0].hide_render
-        print("obj.hide_render", obj.hide_render)
-        print("coll", coll)
         if obj.hide_render == True:
             return obj.hide_render
         else:
